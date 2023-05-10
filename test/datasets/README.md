@@ -1,6 +1,8 @@
-# Datasets
+# Datasets for extraction of semantic event representation
 
-Here are contained two event extraction datasets and the property and an event class distribution file.
+Here are  two event extraction datasets and a file describing the distribution of their event and property labels. 
+
+The two datasets were derived from all Wikipedia articles of events. Given this set of Wikipedia articles, for each Wikipedia link that occurs in the text of an article, it is mapped to a corresponding Wikidata and DBpedia X. Using  
 Both datasets follow the same formatting, similar to that of DyGie++. They are .jsonl files where each line contains a json like the one below:
 ```
 {"doc_key": 36206, 
