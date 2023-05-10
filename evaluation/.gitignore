@@ -1,0 +1,6 @@
+# Ignore everything in this directory
+*
+minority_classes/h_loss_mlc_output/
+!.gitignore
+!rem.py
+!eval.py

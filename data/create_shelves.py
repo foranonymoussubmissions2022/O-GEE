@@ -8,10 +8,9 @@ tmp = {}
 
 if not os.path.isdir("shelves"):
         os.mkdir("shelves")
-""""""        
+ 
 print("Read DBpedia -> Wikidata index.")
-# Read file data/ml_taxonomy/wikidata_to_dbpedia.csv into index
-"""
+
 with open('data/wikidata_to_dbpedia_en.csv') as file:
     dbpedia_ids_to_wikidata_ids = pd.read_csv(file, header=None, index_col=1,
 
@@ -66,24 +65,24 @@ with open('data/redirects_en.csv') as file_redirects:
 
 
 all = []
-"""
-print(1)
-#dbpedia2wd_shelve = shelve.open('shelves/dbpedia_to_wikidata_en')
-#dbpedia2wd_shelve.update(dbpedia_ids_to_wikidata_ids)
-#dbpedia2wd_shelve.close()
+
+
+dbpedia2wd_shelve = shelve.open('shelves/dbpedia_to_wikidata_en')
+dbpedia2wd_shelve.update(dbpedia_ids_to_wikidata_ids)
+dbpedia2wd_shelve.close()
 
 
 
 
-print(2)
-#types_dbo_shelve = shelve.open('shelves/types_dbo')
-#types_dbo_shelve.update(types_dbo)
-#types_dbo_shelve.close()
-print(3)
-#types_wd_shelve = shelve.open('shelves/types_wd')
-#types_wd_shelve.update(types_wd)
-#types_wd_shelve.close()
-print(4)
+
+types_dbo_shelve = shelve.open('shelves/types_dbo')
+types_dbo_shelve.update(types_dbo)
+types_dbo_shelve.close()
+
+types_wd_shelve = shelve.open('shelves/types_wd')
+types_wd_shelve.update(types_wd)
+types_wd_shelve.close()
+
 
 types = {}
 errs = 0
@@ -105,11 +104,10 @@ with open('instanceof-data.tsv') as instance_properties:
             errs+=1
 
 
-print(errs)
 
 types_shelve = shelve.open('shelves/instance_types')
 types_shelve.update(types)
 types_shelve.close()
 
-print(5)
+
 
