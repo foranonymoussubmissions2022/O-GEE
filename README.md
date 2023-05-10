@@ -18,7 +18,7 @@ To recreate the dataset creation, training and evaluation as described in the pa
 * To train the Relation Extraction Model first generate the appropriate format for the data by running ```python O-GEE/convert_data.py```, then run ```O-GEE/train.sh```.
 ### Evaluation
 * Finally to evaluate the perfomance of **O-GEE** and the baselines,and generate the output of our model run ```evaluation/evaluation.py```. 
-  * (Note: To get evaluation scores for the baselines, first follow instruction in their respective subfolders in the [baselines](https://github.com/foranonymoussubmissions2022/O-GEE/blob/main/baselines) folder.)
+* (Note: To get evaluation scores for the baselines, first follow instruction in their respective subfolders in the [baselines](https://github.com/foranonymoussubmissions2022/O-GEE/blob/main/baselines) folder.)
 
 
 
