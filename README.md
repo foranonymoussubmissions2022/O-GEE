@@ -1,6 +1,6 @@
-# SERT
+# O-GEE
 
-This is the code for SERT (Semantic Event Representations from Transformers), based on the paper: "Extraction of Fine-grained Semantic Event Representations from Transformers"
+This is the code for O-GEE (Ontology-Guided Event Extraction), based on the paper: "Transformer-based Ontology-Guided Event Extraction"
 
 
 
