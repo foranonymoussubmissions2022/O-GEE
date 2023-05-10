@@ -2,7 +2,7 @@
 
 This is the code for O-GEE (Ontology-Guided Event Extraction), based on the paper: "Transformer-based Ontology-Guided Event Extraction"
 
-
+![alt text](https://github.com/foranonymoussubmissions2022/O-GEE/blob/main/figs/example.png)
 
 
 ## Steps
