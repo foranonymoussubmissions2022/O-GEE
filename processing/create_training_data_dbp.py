@@ -36,7 +36,6 @@ with open("event_subevents.json","r") as f:
     events = json.load(f)
 
 
-missed = 0
 def first_stage_eval_data():
     directory = "../data/raw_data/"
     dataset = {}
@@ -76,9 +75,7 @@ def first_stage_eval_data():
                     for link in sentence.links:
                         if "Event" in all_sentence_link_types:
                             if "Event" in link["types"]:
-                                #context_window = 1
                                 subevent_link = link["target"]
-                                #except (UnicodeDecodeError, AttributeError):
                                 try:
                                     subevent_wd_id = subevent_link
                                 except (KeyError):
@@ -88,8 +85,6 @@ def first_stage_eval_data():
                                 i+=1
                                 if i%10000==0:
                                     print(i)
-                                #if subevent_wd_id not in events[parent_event_wd_id]:
-                                    #continue
                                 last_sentence_subevents.append((subevent_wd_id, subevent_link))
                                 if parent_event_wd_id not in dataset:
                                     dataset[parent_event_wd_id] = {}
@@ -494,7 +489,7 @@ event_class_counter = Counter()
 
 
 with open("the_data/dbp__full_data.json","r") as f:
-
+    dataset = json.load(dataset)
 
 tmp_dataset = copy.deepcopy(dataset)
 for key in tmp_dataset:
