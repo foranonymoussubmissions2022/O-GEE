@@ -1,6 +1,6 @@
 # Datasets for extraction of semantic event representation
 
-We introduce two new large-scale datasets for the extraction of semantic event representations based on DBpedia and Wikidata. The two datasets contain consist of $43,291$ and $72,649$ samples ,respectively.
+We introduce two new large-scale datasets for the extraction of semantic event representations based on DBpedia and Wikidata. The two datasets contain consist of $43,291$ and $72,649$ samples, respectively.
 
 We derive the datasets from all Wikipedia articles of events. Event classes and relations are extracted by exploiting existing links to events and their Wikidata representations. 
 
