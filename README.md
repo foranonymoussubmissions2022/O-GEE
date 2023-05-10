@@ -54,7 +54,6 @@ An event with N arguments will be written as a list of the form:
 * run  ```test/train.sh``` to train the relation extraction model.
 * run  ```test/evaluation``` to get the final evaluation scores of the approach on the new dataset.
 
-![alt text](https://github.com/foranonymoussubmissions2022/O-GEE/blob/main/figs/evaluation.png)
 
 
 | **Approach** | **Event Classification** | | | | | | **Relation Extraction** | | | | | |
