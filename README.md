@@ -14,8 +14,8 @@ To recreate the dataset creation, training and evaluation as described in the pa
 * Run ```processing/create_training_data.py```.This step will create training data for the baselines and the multilabel classification step of our approach.
 * To train and evaluate specific baselines follow instructions in their respective subfolders in the baselines folder. 
 ### Training
-* To train the multilabel classification model first format the multilabel training, validation and testing data by running  ```mlc/format_mlc_data.py```. Then follow up by running ```mlc/mlc.py```. This will generate the saved model and the output of the model inside the ```/evaluation/minority_classes/mlc_output/```.
-* To train the Relation Extraction Model first generate the appropriate format for the data by running ```python mlc/REM/convert_data.py```, then run ```mlc/REM/train.sh```.
+* To train the multilabel classification model first format the multilabel training, validation and testing data by running  ```O-GEE/format_mlc_data.py```. Then follow up by running ```O-GEE/mlc.py```. This will generate the saved model and the output of the model inside the ```/evaluation/minority_classes/mlc_output/```.
+* To train the Relation Extraction Model first generate the appropriate format for the data by running ```python O-GEE/convert_data.py```, then run ```O-GEE/train.sh```.
 ### Evaluation
 * Finally to evaluate the perfomance of **O-GEE** and the baselines,and generate the output of our model run ```evaluation/evaluation.py```.
 
