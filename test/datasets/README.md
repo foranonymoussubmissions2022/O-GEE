@@ -3,7 +3,8 @@
 We introduce two new large-scale datasets for the extraction of semantic event representations based on DBpedia and Wikidata. The two datasets contain consist of $43,291$ and $72,649$ samples ,respectively.
 
 We derive the datasets from all Wikipedia articles of events. Event classes and relations are extracted by exploiting existing links to events and their Wikidata representations. 
-[ground_truth.pdf](https://github.com/foranonymoussubmissions2022/O-GEE/files/11442378/ground_truth.pdf)
+(https://github.com/foranonymoussubmissions2022/O-GEE/assets/120841329/422f5b36-32a8-41ee-8bd3-fd5df6e1835e)
+
 
 Both datasets follow the same formatting, similar to that of DyGie++. They are .jsonl files where each line contains a json like the one below:
 ```
