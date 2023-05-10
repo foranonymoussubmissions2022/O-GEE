@@ -2,6 +2,13 @@
 
 We introduce two new large-scale datasets for the extraction of semantic event representations based on [DBpedia](https://github.com/foranonymoussubmissions2022/O-GEE/blob/main/test/datasets/full_dbpedia.jsonl) and [Wikidata](https://github.com/foranonymoussubmissions2022/O-GEE/blob/main/test/datasets/full_wikidata.jsonl). The two datasets contain consist of $43,291$ and $72,649$ samples, respectively.
 
+|         |  DBpedia | Wikidata |
+|---------|:--------:| --------:|
+|Texts    | $43,291$ | $72,649$ |
+|Events   | $43,377$ | $79,335$ |
+|Relations| $48,280$ | $139,559$|
+
+
 We derive the datasets from all Wikipedia articles of events. Event classes and relations are extracted by exploiting existing links to events and their Wikidata representations. 
 
 ![alt text](https://github.com/foranonymoussubmissions2022/O-GEE/blob/main/test/datasets/ground_truth.png)
