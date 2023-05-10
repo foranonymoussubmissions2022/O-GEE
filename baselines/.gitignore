@@ -1,0 +1,6 @@
+# Ignore everything in this directory
+*
+!.gitignore
+!t2e
+!dygiepp
+!RE
