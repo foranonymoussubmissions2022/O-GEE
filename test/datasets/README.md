@@ -17,7 +17,7 @@ An event with N arguments will be written as a list of the form:
 [[trigger_token_start_index, trigger_token_end_index, event_type], 
 [argument_token_start1_index, argument_token_end_index1, arg1_type], 
 [argument_token_start2_index, argument_token_end_index2, arg2_type], 
-..., [argument_token_startN_index, argument_token_end_indexN, argN_type]]. 
+..., [argument_token_startN_index, argument_token_end_indexN, argN_type]]
 ```
 
 
