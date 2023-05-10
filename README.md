@@ -6,20 +6,17 @@ This is the code for O-GEE (Ontology-Guided Event Extraction), based on the pape
 
 
 ## Steps
-To recreate the dataset creation, training and evaluation as described in the paper follow the steps as described below. 
-### Starting from scratch
-* To recreate the dataset from the beginning start [here](#Data-creation-and-preprocessing).
-#### Data creation and preprocessing
+To recreate the dataset creation, training and evaluation as described in the paper follow the steps as described below. To use our complete data for experiments start from [Training](#Training).
+### Data creation and preprocessing
 * Follow instructions in the [EventTextWikipediaDumper](https://github.com/foranonymoussubmissions2022/EventTextWikipediaDumper) to run [MWDumper](https://www.mediawiki.org/wiki/Manual:MWDumper) and get Wikipedia articles of events in .ndjson file format. Place the resulting files into data\raw in the project folder.
 * Run ```data/data_download.sh``` to prepare Wikidata and Dbpedia dumps and redirects.
 * Run ```data/create_shelves.py``` to assure quick access to the dumps.
 * Run ```processing/create_training_data.py```.This step will create training data for the baselines and the multilabel classification step of our approach.
 * To train and evaluate specific baselines follow instructions in their respective subfolders in the baselines folder. 
-### Using our complete data
-#### Training
+### Training
 * To train the multilabel classification model first format the multilabel training, validation and testing data by running  ```mlc/format_mlc_data.py```. Then follow up by running ```mlc/mlc.py```. This will generate the saved model and the output of the model inside the ```/evaluation/minority_classes/mlc_output/```.
 * To train the Relation Extraction Model first generate the appropriate format for the data by running ```python mlc/REM/convert_data.py```, then run ```mlc/REM/train.sh```.
-#### Evaluation
+### Evaluation
 * Finally to evaluate the perfomance of our model and the baselines,and generate the output of our model run ```evaluation/evaluation.py```.
 
 
