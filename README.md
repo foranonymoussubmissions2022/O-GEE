@@ -42,6 +42,7 @@ To test our approach on other events ontologies or datasets follow the steps as 
 * run  ```test/train.sh``` to train the relation extraction model.
 * run  ```test/evaluation``` to get the final evaluation scores of the approach on the new dataset.
 
+![alt text](https://github.com/foranonymoussubmissions2022/O-GEE/blob/main/figs/evaluation.png)
 
 
 | **Approach** | **Event Classification** | | | | | | **Relation Extraction** | | | | | |
