@@ -31,11 +31,8 @@ types_wd = shelve.open('../data/shelves/types_wd')
 instance_types = shelve.open("../data/shelves/instance_types")
 
 
-with open("event_subevents.json","r") as f:
-    events = json.load(f)
 
 
-missed = 0
 def first_stage_eval_data():
     directory = "../data/raw_data/"
     dataset = {}
@@ -55,11 +52,7 @@ def first_stage_eval_data():
             try:
                 parent_event_wd_id = dbpedia_ids_to_wikidata_ids[parent_event_link]
             except (KeyError):
-                mistakes+=1
                 continue
-            if parent_event_wd_id not in events:
-                event_wd_not_in_events+=1
-
             for input_paragraph in Article_obj.input_paragraphs:
                 last_sentence_subevents = []
                 for sentence in input_paragraph.sentences:
@@ -147,19 +140,16 @@ new_dataset = {}
 for num, event_wd_id in enumerate(dataset):
     print("%d out %d"%(num, len(dataset)))
     for subevent in dataset[event_wd_id]:
-        total_subevents.append(subevent)
         try:
             subevent_wd_id, subevent_link = subevent.split("@")
         except ValueError:
-            total_failure+=1
             continue
         if subevent_wd_id in instance_types: 
             try:
                 subevent_types = instance_types[subevent_wd_id] 
             except(KeyError):
-                d2.append(subevent_link)
+                pass
         else:
-            subevents_missed_because_no_prop_or_no_instance_type.append(subevent_wd_id)
             continue
         subevent_types = list(subevent_types)
         groundtruth_properties = dataset[event_wd_id][subevent]["groundtruth"]
@@ -168,13 +158,11 @@ for num, event_wd_id in enumerate(dataset):
         if "Q1656682" in subevent_types: #event
             subevent_types.remove("Q1656682") #event
         if not subevent_types:
-            no_type+=1
             continue
         groundtruth_properties = {k:v for k, v in groundtruth_properties.items()}
         groundtruth_values = {wd:k for k,v in groundtruth_properties.items() for wd in v}
 
         if groundtruth_values == {}:
-            tpe+=1
             continue
 
         completed = set()
@@ -182,7 +170,6 @@ for num, event_wd_id in enumerate(dataset):
             new_groundtruth = {}
             sample_subevent = sample[0]
             if subevent_wd_id not in subevents_properties or "P31" not in subevents_properties[subevent_wd_id]:
-                missed_subevents+=1
                 continue
 
             subevent_class_type = subevents_properties[subevent_wd_id]["P31"]
@@ -432,7 +419,7 @@ with open("the_data/wd__full_data.json","w") as f:
 event_class_counter = Counter()
 
 
-with open("wd__full_data_enriched.json","r") as f:
+with open("wd__full_data.json","r") as f:
     dataset = json.load(f)
 #with open("the_data/wd__full_data.json","r") as f:
     #dataset = json.load(f)
@@ -466,10 +453,10 @@ for key in dataset:
                 property_counter.update(list(sample["sample_groundtruth"].keys()))
                 event_class_counter.update(sample["ground_event_types"])
 
-with open("wd_enriched__clean_data.json","w") as f:
+with open("wde__clean_data.json","w") as f:
     json.dump(clean_dataset, f)
 
-with open("wd_enriched__clean_data.json","r") as f:
+with open("wde__clean_data.json","r") as f:
     clean_dataset = json.load(f)
 
 
@@ -507,7 +494,7 @@ def filter_clean_data(filter_size=50):
                     filtered_dataset[key][subkey] = []
                 filtered_dataset[key][subkey].append(new_sample)
 
-    with open("wd_enriched__filtered_data"+str(filter_size)+".json","w") as f:
+    with open("wde__filtered_data"+str(filter_size)+".json","w") as f:
         json.dump(filtered_dataset, f)
 
 def second_pass(data, class_filter, prop_filter, label ="2nd"):
@@ -561,7 +548,7 @@ def second_pass(data, class_filter, prop_filter, label ="2nd"):
 
 filter_clean_data(100)
 
-second_pass("wd_enriched__filtered_data100.json", class_filter = 100, prop_filter = 50, label="3rd")
+second_pass("wde__filtered_data100.json", class_filter = 100, prop_filter = 50, label="3rd")
 
 
 with open("class_counter.json", "r") as f:
@@ -604,11 +591,9 @@ for event in dataset:
             for c in types:
                 all_event_classes.update({c})
 
-with open("wd_enriched_all_event_classes.txt","w") as f:
+with open("wde_all_event_classes.txt","w") as f:
     for line in list(all_event_classes):
         f.write(f"{line}\n")
-
-#all_event_classes = set()
 
 
 #choose minority class
@@ -675,7 +660,7 @@ for cl in event_class_properties:
     event_class_properties[cl] = list(event_class_properties[cl])
 
 
-with open("../data/enriched_training/t2e/wd_enriched_unlabelled_event.schema","w") as f:
+with open("../data/training/t2e/wde_unlabelled_event.schema","w") as f:
     f.write(f"{list(event_classes)}\n")
     f.write(f"{list(event_properties)}\n")
     f.write(f"{event_class_properties}\n")
@@ -686,7 +671,7 @@ for cl in event_class_properties:
     event_class_properties[cl] = [prop_labels[prop] for prop in event_class_properties[cl]]
 event_class_properties = {class_labels[cl]:v for cl,v in event_class_properties.items()}
 
-with open("../data/enriched_training/t2e/wd_enriched_labelled_event.schema","w") as f:
+with open("../data/training/t2e/wde_labelled_event.schema","w") as f:
     f.write(f"{list(event_classes)}\n")
     f.write(f"{list(event_properties)}\n")
     f.write(f"{event_class_properties}\n")
@@ -745,7 +730,7 @@ for i, context in enumerate(tmp2):
                 new_sample["groundtruth_events"].append({cl : {"sample_event_link":tmp_sample[0]["sample_event_link"], "sample_groundtruth":props}})
             all_samples.append(new_sample)
 
-def create_baseline_training_data(all_samples, path = "../data/enriched_training"):
+def create_baseline_training_data(all_samples, path = "../data/training"):
     t2e_training_samples = []
     relation_extraction_samples = []
     dygiepp_training_samples = []
@@ -830,42 +815,42 @@ def create_baseline_training_data(all_samples, path = "../data/enriched_training
     test=[dygiepp_training_samples[i] for i in test_idx]
     dev=[dygiepp_training_samples[i] for i in dev_idx]
 
-    with jsonlines.open(path+"/dygiepp/wd_enriched_eq_train.json","w") as f:
+    with jsonlines.open(path+"/dygiepp/wde_eq_train.json","w") as f:
         f.write_all(train)
 
-    with jsonlines.open(path+"/dygiepp/wd_enriched_eq_test.json","w") as f:
+    with jsonlines.open(path+"/dygiepp/wde_eq_test.json","w") as f:
         f.write_all(test)
 
-    with jsonlines.open(path+"/dygiepp/wd_enriched_eq_dev.json","w") as f:
+    with jsonlines.open(path+"/dygiepp/wde_eq_dev.json","w") as f:
         f.write_all(dev)
 
     train=[t2e_training_samples[i] for i in train_idx]
     test=[t2e_training_samples[i] for i in test_idx]
     dev=[t2e_training_samples[i] for i in dev_idx]
 
-    with jsonlines.open(path+"/t2e/wd_enriched_eq_train.json","w") as f:
+    with jsonlines.open(path+"/t2e/wde_eq_train.json","w") as f:
         f.write_all(train)
 
-    with jsonlines.open(path+"/t2e/wd_enriched_eq_test.json","w") as f:
+    with jsonlines.open(path+"/t2e/wde_eq_test.json","w") as f:
         f.write_all(test)
 
-    with jsonlines.open(path+"/t2e/wd_enriched_eq_val.json","w") as f:
+    with jsonlines.open(path+"/t2e/wde_eq_val.json","w") as f:
         f.write_all(dev)
 
     train=[relation_extraction_samples[i] for i in train_idx]
     test=[relation_extraction_samples[i] for i in test_idx]
     dev=[relation_extraction_samples[i] for i in dev_idx]
 
-    with jsonlines.open(path+"/re/wd_enriched_eq_train.json","w") as f:
+    with jsonlines.open(path+"/re/wde_eq_train.json","w") as f:
         f.write_all(train)
 
-    with jsonlines.open(path+"/re/wd_enriched_eq_test.json","w") as f:
+    with jsonlines.open(path+"/re/wde_eq_test.json","w") as f:
         f.write_all(test)
 
-    with jsonlines.open(path+"/re/wd_enriched_eq_dev.json","w") as f:
+    with jsonlines.open(path+"/re/wde_eq_dev.json","w") as f:
         f.write_all(dev)
 
-create_baseline_training_data(all_samples, path = "../data/enriched_training")
+create_baseline_training_data(all_samples, path = "../data/training")
 
 def create_sparse_full_data(tokenized_path, untokenized_path, output_path):
     data = []
@@ -887,8 +872,6 @@ def create_sparse_full_data(tokenized_path, untokenized_path, output_path):
     k = 0
 
     for t, (t_sample, u_sample) in enumerate(zip(tokenized_samples, untokenized_samples)):
-        if t in indices:
-            print()
         if t % 1000==0:
             print("%d out of %d completed"%(t, len(tokenized_samples)))
         data.append({"title":str(t), "paragraphs":[]})
