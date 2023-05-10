@@ -20,7 +20,10 @@ To recreate the dataset creation, training and evaluation as described in the pa
 * Finally to evaluate the perfomance of our model and the baselines,and generate the output of our model run ```evaluation/evaluation.py```.
 
 ## Working with a new dataset
-To test our approach on other events ontologies or datasets follow the steps as described below
+To test our approach on other events ontologies or datasets follow the steps as described below.
+
+![alt text](https://github.com/foranonymoussubmissions2022/O-GEE/blob/main/figs/pipeline.png)
+
 * Format the dataset as shown ```test/full_dataset.jsonl```. Each line represents a json file containing text, it's sentences, and events in their respective sentences. Where an event with `N` arguments will be written as a list of the form `[[trigger_tok, event_type], [start_tok_arg1, end_tok_arg1, arg1_type], [start_tok_arg2, end_tok_arg2, arg2_type], ..., [start_tok_argN, end_tok_argN, argN_type]]`. For instance,
   ```json
   [
