@@ -27,7 +27,7 @@ To test our approach on other events ontologies or datasets follow the steps as 
 * Format the dataset as follows. Each line represents a json file containing text, it's sentences, and events in their respective sentences:
 
 
-  ```
+```
 {"doc_key": 36206, 
 "dataset": "event extraction", 
 "sentences": [["The", "2020", "United", "States", "presidential", "election", "in", "Missouri", "was", "held", "on", "Tuesday", ",", "November", "3", ",", "2020", ",", "as", "part", "of", "the", "2020", "United", "States", "presidential", "election", "in", "which", "all", "50", "states", "plus", "the", "District", "of", "Columbia", "participated", "."]],
