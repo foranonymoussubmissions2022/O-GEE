@@ -7,7 +7,7 @@ This is the code for O-GEE (Ontology-Guided Event Extraction), based on the pape
 
 ## Steps
 To recreate the dataset creation, training and evaluation as described in the paper follow the steps as described below. 
-### Data creation and preprocessing
+#### Data creation and preprocessing
 * Follow instructions in the [EventTextWikipediaDumper](https://github.com/foranonymoussubmissions2022/EventTextWikipediaDumper) to run [MWDumper](https://www.mediawiki.org/wiki/Manual:MWDumper) and get Wikipedia articles of events in .ndjson file format. Place the resulting files into data\raw in the project folder.
 * Run ```data/data_download.sh``` to prepare Wikidata and Dbpedia dumps and redirects.
 * Run ```data/create_shelves.py``` to assure quick access to the dumps.
