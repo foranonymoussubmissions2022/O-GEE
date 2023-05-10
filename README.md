@@ -24,20 +24,29 @@ To test our approach on other events ontologies or datasets follow the steps as 
 
 ![alt text](https://github.com/foranonymoussubmissions2022/O-GEE/blob/main/figs/pipeline.png)
 
-* Format the dataset as shown ```test/full_dataset.jsonl```. Each line represents a json file containing text, it's sentences, and events in their respective sentences. Where an event with `N` arguments will be written as a list of the form `[[trigger_tok, event_type], [start_tok_arg1, end_tok_arg1, arg1_type], [start_tok_arg2, end_tok_arg2, arg2_type], ..., [start_tok_argN, end_tok_argN, argN_type]]`. For instance,
-  ```json
-  [
-    [],
-    [],
-    [
-      [
-        [15, "Event Class"],
-        [13, 13, "Event argument1"]
-        [17, 17, "Event argument2"]
-      ]
-    ]
-  ]
+* Format the dataset as follows. Each line represents a json file containing text, it's sentences, and events in their respective sentences:
+
+
   ```
+{"doc_key": 36206, 
+"dataset": "event extraction", 
+"sentences": [["The", "2020", "United", "States", "presidential", "election", "in", "Missouri", "was", "held", "on", "Tuesday", ",", "November", "3", ",", "2020", ",", "as", "part", "of", "the", "2020", "United", "States", "presidential", "election", "in", "which", "all", "50", "states", "plus", "the", "District", "of", "Columbia", "participated", "."]],
+"events": [[[[1, 5, "Election"], [1, 1, "startDate"]]]]}
+```
+
+The "events" field should contain a list containing a sublist for each sentence in the "sentences" field. Each of these sublists contains another sublist per event.
+An event with N arguments will be written as a list of the form:
+
+```
+[
+  [trigger_token_start_index, trigger_token_end_index, event_type], 
+    [argument_token_start1_index, argument_token_end_index1, arg1_type], 
+    [argument_token_start2_index, argument_token_end_index2, arg2_type], 
+    ...,  
+    [argument_token_startN_index, argument_token_end_indexN, argN_type]
+]
+```
+
 
 * run  ```test/formatting.py``` to create necessary event classification and relation extraction training splits.
 * run ```test/convert_data.py```for further processing of relation extraction data.
