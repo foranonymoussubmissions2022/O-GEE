@@ -17,8 +17,7 @@ Both datasets follow the same formatting, similar to that of DyGie++. They are .
 The "events" field is a list containing a sublist for each sentence in the "sentences" field. Each of these sublists contains another sublist per event.
 An event with N arguments will be written as a list of the form:
   ```
-[[trigger_token_start_index, trigger_token_end_in[ground_truth.pdf](https://github.com/foranonymoussubmissions2022/O-GEE/files/11442376/ground_truth.pdf)
-dex, event_type], 
+[[trigger_token_start_index, trigger_token_end_index, event_type], 
 [argument_token_start1_index, argument_token_end_index1, arg1_type], 
 [argument_token_start2_index, argument_token_end_index2, arg2_type], 
 ..., [argument_token_startN_index, argument_token_end_indexN, argN_type]]
