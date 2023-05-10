@@ -1,22 +1,14 @@
-print(1)
 import sys, os
 import ast
-print(2)
 import os
-#import networkx as nx
 from classes import * 
-print(3)
 import ndjson
-#from utils import * # commented on 18/3/2023 
-print(4)
 from collections import Counter,  OrderedDict
-#from SPARQLWrapper import SPARQLWrapper, JSON
 import shelve
 import time
 import json
 import datetime
 import datefinder
-print(5)
 import shelve
 import csv
 import re
@@ -24,8 +16,7 @@ rx = r"\.(?=\S)"
 import copy
 from sklearn.model_selection import train_test_split
 import jsonlines
-import spacy  # version 3.0.6'
-
+import spacy  
 
 nlp = spacy.load("en_core_web_md")
 nlp.add_pipe("entityLinker")
@@ -50,11 +41,6 @@ def first_stage_eval_data():
     dataset = {}
     dygiepp_data = []
     i = 0
-    k = 0
-    mistakes = 0
-    event_wd_not_in_events = 0
-    d = []
-    all = 0
     e = time.time()
     context_window = 0
     for u, filename in enumerate(os.listdir(directory)):
@@ -64,7 +50,6 @@ def first_stage_eval_data():
         with open(directory+filename, "r") as f:
             json_list = ndjson.load(f)
         for g,js in enumerate(json_list):
-            all+=1
             Article_obj = Article(js)
             parent_event_link = ("_".join(Article_obj.article_name.split(" ")))
             try:
@@ -83,20 +68,15 @@ def first_stage_eval_data():
                     for link in sentence.links:
                         if "Event" in all_sentence_link_types:
                             if "Event" in link["types"]:
-                                #context_window = 1
                                 subevent_link = link["target"]
-                                #except (UnicodeDecodeError, AttributeError):
                                 try:
                                     subevent_wd_id = dbpedia_ids_to_wikidata_ids[subevent_link] 
                                 except (KeyError):
                                     d.append(subevent_wd_id)
                                     continue
-                                # if subevent doesnt have partof event
                                 i+=1
                                 if i%10000==0:
                                     print(i)
-                                #if subevent_wd_id not in events[parent_event_wd_id]:
-                                    #continue
                                 last_sentence_subevents.append((subevent_wd_id, subevent_link))
                                 if parent_event_wd_id not in dataset:
                                     dataset[parent_event_wd_id] = {}
@@ -114,10 +94,7 @@ def first_stage_eval_data():
                                 dataset[parent_event_wd_id][subevent_wd_id +"@" + subevent_link]["samples"][-1] = (link, text, links)
                                 dygiepp_data.append(sentence.text)
                             last_sentence_subevents = [] 
-    print("all articles:", all)
-    print("mistakes:", mistakes)
-    print("print not in events:",event_wd_not_in_events)
-    print("missed_subevents:", len(d))
+
     with open('eval_data_with_context_window.txt', 'w') as f:
         json.dump(dataset,f)
     
@@ -135,7 +112,6 @@ with open("all_subevent_properties.txt", "r") as f:
     lines = f.readlines()[1:]
     for row in lines:
         row = row.rstrip().split("\t")
-        #subevent, event = row.split("\t")[0], row.split("\t")[1]
         event, property, value = row[0], row[1], row[2]
         if event not in subevents_properties:
             subevents_properties[event] = {}
@@ -157,7 +133,7 @@ for event_wd_id in dataset:
             continue
         subevent_properties = subevents_properties[subevent_wd_id]
         dataset[event_wd_id][subevent]["groundtruth"] = subevent_properties
-print(len(d))
+
 
 with open('all_data.txt', 'w') as f:
     json.dump(dataset,f)
@@ -168,20 +144,6 @@ with open('all_data.txt', 'r') as f:
 
 
 new_dataset = {}
-tpe = 0
-no_type = 0
-total_subevents = []
-subevents_missed_because_no_prop_or_no_instance_type = []
-d2 = []
-subevent_types_removed_because_they_have_no_properties = []
-subevents_removed_because_they_have_no_types_remaining = []
-d5 = []
-number_of_samples = []
-number_of_participant_properties = 0
-number_of_time_properties = 0
-missed_subevents = 0
-ggg = 0
-total_failure = 0
 for num, event_wd_id in enumerate(dataset):
     print("%d out %d"%(num, len(dataset)))
     for subevent in dataset[event_wd_id]:
@@ -191,9 +153,9 @@ for num, event_wd_id in enumerate(dataset):
         except ValueError:
             total_failure+=1
             continue
-        if subevent_wd_id in instance_types: # 2/5/2023 changed from instance_types
+        if subevent_wd_id in instance_types: 
             try:
-                subevent_types = instance_types[subevent_wd_id] # 2/5/2023 changed from instance_types
+                subevent_types = instance_types[subevent_wd_id] 
             except(KeyError):
                 d2.append(subevent_link)
         else:
@@ -202,7 +164,7 @@ for num, event_wd_id in enumerate(dataset):
         subevent_types = list(subevent_types)
         groundtruth_properties = dataset[event_wd_id][subevent]["groundtruth"]
         tmp = subevent_types
-        #ignore events which are types as "event"
+        #ignore events which are typed as "event"
         if "Q1656682" in subevent_types: #event
             subevent_types.remove("Q1656682") #event
         if not subevent_types:
@@ -316,7 +278,7 @@ for num, event_wd_id in enumerate(dataset):
                             end_char = sample.context.index(t.text)+len(t.text)
                         elif not first:
                             break
-                    new_groundtruth[property].append([start, end, start_char, end_char, property, ttime[1]]) # it used to be just ttime
+                    new_groundtruth[property].append([start, end, start_char, end_char, property, ttime[1]]) 
                     del groundtruth_values[ttime]
             
             updated_times =[]
@@ -602,11 +564,11 @@ filter_clean_data(100)
 second_pass("wd_enriched__filtered_data100.json", class_filter = 100, prop_filter = 50, label="3rd")
 
 
-with open("notforgit/class_counter.json", "r") as f:
+with open("class_counter.json", "r") as f:
     C = json.load(f)
 
 
-with open("notforgit/__3rd_pass_filtered_data.json","r") as f:
+with open("__3rd_pass_filtered_data.json","r") as f:
     dataset = json.load(f)
 
 n_events = 0
@@ -624,10 +586,10 @@ for key in dataset:
                 n_context +=1
 
 
-with open("notforgit/label_class.json", "r") as f:
+with open("label_class.json", "r") as f:
     class_labels = json.load(f)
 
-with open("notforgit/label_prop.json", "r") as f:
+with open("label_prop.json", "r") as f:
     prop_labels = json.load(f)
 
 all_samples = []

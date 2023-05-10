@@ -1,24 +1,14 @@
-print(1)
 import sys, os
 import ast
-#sys.path.append(os.path.abspath(os.path.join('../data')))
-#from nltk.tokenize import sent_tokenize, word_tokenize  
-print(2)
 import os
-#import networkx as nx
 from classes import * 
-print(3)
 import ndjson
-#from utils import * # commented on 18/3/2023 
-print(4)
 from collections import Counter,  OrderedDict
-#from SPARQLWrapper import SPARQLWrapper, JSON
 import shelve
 import time
 import json
 import datetime
 import datefinder
-print(5)
 import shelve
 import csv
 import re
@@ -34,12 +24,12 @@ nlp.add_pipe("entityLinker")
 def remove_non_ascii(string):
     return ''.join(char for char in string if ord(char) < 256)
 
-"""
-#dbpedia_ids_to_wikidata_ids = shelve.open('../data/shelves/dbpedia_to_wikidata_en')
+
+dbpedia_ids_to_wikidata_ids = shelve.open('../data/shelves/dbpedia_to_wikidata_en')
 wikidata_ids_to_dbpedia_ids = shelve.open('../data/shelves/wikidata_to_dbpedia_en')
 types_dbo = shelve.open('../data/shelves/types_dbo2')
-#types_wd = shelve.open('../data/shelves/types_wd')
-#instance_types = shelve.open("../data/shelves/instance_types")
+types_wd = shelve.open('../data/shelves/types_wd')
+instance_types = shelve.open("../data/shelves/instance_types")
 
 
 with open("event_subevents.json","r") as f:
@@ -124,7 +114,7 @@ def first_stage_eval_data():
     with open('dbp_eval_data_with_context_window.txt', 'w') as f:
         json.dump(dataset,f)
     
-#first_stage_eval_data()
+first_stage_eval_data()
 
 
 
@@ -499,18 +489,12 @@ for subdir, dirs, files in os.walk("the_data"):
 with open("the_data/dbp__full_data.json","w") as f:
     json.dump(dataset, f)
 
-"""
-"""
+
 event_class_counter = Counter()
 
 
-#with open("the_data/dbp__full_data.json","r") as f:
+with open("the_data/dbp__full_data.json","r") as f:
 
-with open("dbp_full_data_enriched.json","r") as f:
-    dataset = json.load(f)
-
-#with open("the_data/dbp__full_data.json","r") as f:
-    #dataset = json.load(f)
 
 tmp_dataset = copy.deepcopy(dataset)
 for key in tmp_dataset:
@@ -552,10 +536,10 @@ for key in dataset:
                 property_counter.update(list(sample["sample_groundtruth"].keys()))
                 event_class_counter.update(sample["ground_event_types"])
 
-with open("dbp_enriched__clean_data.json","w") as f:
+with open("dbpe__clean_data.json","w") as f:
     json.dump(clean_dataset, f)
 
-with open("dbp_enriched__clean_data.json","r") as f:
+with open("dbpe__clean_data.json","r") as f:
     clean_dataset = json.load(f)
 
 
@@ -593,7 +577,7 @@ def filter_clean_data(filter_size=50):
                     filtered_dataset[key][subkey] = []
                 filtered_dataset[key][subkey].append(new_sample)
 
-    with open("dbp_enriched__filtered_data"+str(filter_size)+".json","w") as f:
+    with open("dbpe__filtered_data"+str(filter_size)+".json","w") as f:
         json.dump(filtered_dataset, f)
 
 def second_pass(data, class_filter, prop_filter, label ="2nd"):
@@ -638,25 +622,25 @@ def second_pass(data, class_filter, prop_filter, label ="2nd"):
                     filtered_dataset[key][subkey] = []
                 filtered_dataset[key][subkey].append(new_sample)
 
-    with open("dbp_enriched__"+label+"_pass_filtered_data.json","w") as f:
+    with open("dbpe__"+label+"_pass_filtered_data.json","w") as f:
         json.dump(filtered_dataset, f)
 
-    with open("dbp_enriched_class_counter.json", "w") as f:
+    with open("dbpe_class_counter.json", "w") as f:
         json.dump(c1,f)
     
-    with open("dbp_enriched_property_counter.json", "w") as f:
+    with open("dbpe_property_counter.json", "w") as f:
         json.dump(c2,f)
 
 filter_clean_data(100)
 
-second_pass("dbp_enriched__filtered_data100.json", class_filter = 100, prop_filter = 50, label="3rd")
+second_pass("dbpe__filtered_data100.json", class_filter = 100, prop_filter = 50, label="3rd")
 
 
-with open("dbp_enriched_class_counter.json", "r") as f:
+with open("dbpe__class_counter.json", "r") as f:
     C = json.load(f)
 
 
-with open("dbp_enriched__3rd_pass_filtered_data.json","r") as f:
+with open("dbpe__3rd_pass_filtered_data.json","r") as f:
     dataset = json.load(f)
 
 n_events = 0
@@ -692,7 +676,7 @@ for event in dataset:
             for c in types:
                 all_event_classes.update({c})
 
-with open("dbp_enriched_all_event_classes.txt","w") as f:
+with open("dbpe_all_event_classes.txt","w") as f:
     for line in list(all_event_classes):
         f.write(f"{line}\n")
 
@@ -763,7 +747,7 @@ for cl in event_class_properties:
     event_class_properties[cl] = list(event_class_properties[cl])
 
 
-with open("../data/enriched_training/t2e/dbp_enriched_unlabelled_event.schema","w") as f:
+with open("../data/training/t2e/dbpe_unlabelled_event.schema","w") as f:
     f.write(f"{list(event_classes)}\n")
     f.write(f"{list(event_properties)}\n")
     f.write(f"{event_class_properties}\n")
@@ -774,7 +758,7 @@ for cl in event_class_properties:
     event_class_properties[cl] = [prop for prop in event_class_properties[cl]]
 event_class_properties = {cl:v for cl,v in event_class_properties.items()}
 
-with open("../data/enriched_training/t2e/dbp_enriched_labelled_event.schema","w") as f:
+with open("../data/training/t2e/dbpe_labelled_event.schema","w") as f:
     f.write(f"{list(event_classes)}\n")
     f.write(f"{list(event_properties)}\n")
     f.write(f"{event_class_properties}\n")
@@ -838,7 +822,7 @@ for i, context in enumerate(tmp2):
 
 
 
-def create_baseline_training_data(all_samples, path = "../data/enriched_training"):
+def create_baseline_training_data(all_samples, path = "../data/training"):
     t2e_training_samples = []
     relation_extraction_samples = []
     dygiepp_training_samples = []
@@ -923,48 +907,48 @@ def create_baseline_training_data(all_samples, path = "../data/enriched_training
     test=[dygiepp_training_samples[i] for i in test_idx]
     dev=[dygiepp_training_samples[i] for i in dev_idx]
 
-    with jsonlines.open(path+"/dygiepp/dbp_enriched_eq_train.json","w") as f:
+    with jsonlines.open(path+"/dygiepp/dbpe_eq_train.json","w") as f:
         f.write_all(train)
 
-    with jsonlines.open(path+"/dygiepp/dbp_enriched_eq_test.json","w") as f:
+    with jsonlines.open(path+"/dygiepp/dbpe_eq_test.json","w") as f:
         f.write_all(test)
 
-    with jsonlines.open(path+"/dygiepp/dbp_enriched_eq_dev.json","w") as f:
+    with jsonlines.open(path+"/dygiepp/dbpe_eq_dev.json","w") as f:
         f.write_all(dev)
 
     train=[t2e_training_samples[i] for i in train_idx]
     test=[t2e_training_samples[i] for i in test_idx]
     dev=[t2e_training_samples[i] for i in dev_idx]
 
-    with jsonlines.open(path+"/t2e/dbp_enriched_eq_train.json","w") as f:
+    with jsonlines.open(path+"/t2e/dbpe_eq_train.json","w") as f:
         f.write_all(train)
 
-    with jsonlines.open(path+"/t2e/dbp_enriched_eq_test.json","w") as f:
+    with jsonlines.open(path+"/t2e/dbpe_eq_test.json","w") as f:
         f.write_all(test)
 
-    with jsonlines.open(path+"/t2e/dbp_enriched_eq_val.json","w") as f:
+    with jsonlines.open(path+"/t2e/dbpe_eq_val.json","w") as f:
         f.write_all(dev)
 
     train=[relation_extraction_samples[i] for i in train_idx]
     test=[relation_extraction_samples[i] for i in test_idx]
     dev=[relation_extraction_samples[i] for i in dev_idx]
 
-    with jsonlines.open(path+"/re/dbp_enriched_eq_train.json","w") as f:
+    with jsonlines.open(path+"/re/dbpe_eq_train.json","w") as f:
         f.write_all(train)
 
-    with jsonlines.open(path+"/re/dbp_enriched_eq_test.json","w") as f:
+    with jsonlines.open(path+"/re/dbpe_eq_test.json","w") as f:
         f.write_all(test)
 
-    with jsonlines.open(path+"/re/dbp_enriched_eq_dev.json","w") as f:
+    with jsonlines.open(path+"/re/dbpe_eq_dev.json","w") as f:
         f.write_all(dev)
 
-create_baseline_training_data(all_samples, path = "../data/enriched_training")
-"""
+create_baseline_training_data(all_samples, path = "../data/training")
+
 def create_sparse_full_data(tokenized_path, untokenized_path, output_path):
     data = []
     tokenized_samples = []
     untokenized_samples = []
-    with open("../data/enriched_training/t2e/dbpe_unlabelled_event.schema","r") as f:
+    with open("../data/training/t2e/dbpe_unlabelled_event.schema","r") as f:
         for o, line in enumerate(f):
             if o ==2:
                 event2role =  ast.literal_eval(line)
@@ -1058,105 +1042,6 @@ def get_correct_indices(detokenized_sentence, tokenized_sentence, token_start, t
     except:
         print(1)
         return 0,0
-        
-#with open("dbp_label_class.json", "r") as f:
-    #class_labels = json.load(f)
-#class_label_uri = {v:k for k,v in class_labels.items()}
-
-#with open("dbp_label_prop.json", "r") as f:
-    #prop_labels = json.load(f)
-
-#prop_label_uri= {v:k for k,v in prop_labels.items()}
-def create_sparser_full_data(tokenized_path, untokenized_path, output_path):
-    data = []
-    tokenized_samples = []
-    untokenized_samples = []
-    positive_sample_num = {}
-    negative_sample_num = {}
-    with open("../data/enriched_training/t2e/dbpe2_unlabelled_event.schema","r") as f:
-        for o, line in enumerate(f):
-            if o ==2:
-                event2role =  ast.literal_eval(line)
-
-    with open(tokenized_path, 'r') as json_file1, open(untokenized_path, "r") as json_file2:
-        json_list1 = list(json_file1)
-        json_list2 = list(json_file2)
-
-    for json_str1, json_str2 in zip(json_list1, json_list2):
-        tokenized_samples.append(json.loads(json_str1))
-        untokenized_samples.append(json.loads(json_str2))
-
-    k = 0
-
-    for t, (t_sample, u_sample) in enumerate(zip(tokenized_samples, untokenized_samples)):
-        if t % 1000==0:
-            print("%d out of %d completed"%(t, len(tokenized_samples)))
-        data.append({"title":str(t), "paragraphs":[]})
-        u_sentence = u_sample["text"]
-        for i, t_sentence in enumerate(t_sample["sentences"]):
-            data[-1]["paragraphs"] = []
-            #data[-1]["paragraphs"]["context"] = detokenized_sentence
-            data[-1]["paragraphs"].append({"qas":[], "context":u_sentence})
-            tmp = {}
-            for event in t_sample["events"][i]:
-                token_start = event[0][0] 
-                token_end = event[0][1]
-                event_type = event[0][2] 
-                trigger = " ".join(t_sentence[token_start:token_end+1]) 
-                if event_type not in tmp:
-                    tmp[event_type] = {"triggers":[], "arguments":{}}
-                tmp[event_type]["triggers"].append(trigger)
-                    #tmp[class_label_uri[event_type]] = {"triggers":[], "arguments":{}}
-                #tmp[class_label_uri[event_type]]["triggers"].append(trigger)
-
-                for event_part in event[1:]: 
-                    token_start = event_part[0]
-                    token_end = event_part[1]
-                    role_type = event_part[2]
-                    # assumption of one event per event type in a sample
-                    #if prop_label_uri[role_type] not in tmp[class_label_uri[event_type]]["arguments"]:
-                        #tmp[class_label_uri[event_etype]]["arguments"][prop_label_uri[role_type]] = []
-                    if role_type not in tmp[event_type]["arguments"]:
-                        tmp[event_type]["arguments"][role_type] = []
-
-                    start_index, end_index = get_correct_indices(u_sentence, [token for sent in t_sample["sentences"] for token in sent], token_start, token_end)
-                    
-                    arg_string = u_sentence[start_index:end_index]
-                    #tmp[class_label_uri[event_type]]["arguments"][prop_label_uri[role_type]].append(arg_string)
-                    tmp[event_type]["arguments"][role_type].append(arg_string)
-                #event_type = class_label_uri[event_type]
-                event_type = event_type
-                for property in event2role[event_type]:      
-                    k+=1
-                    question = event_type + "," + property
-                    if question not in positive_sample_num:
-                        positive_sample_num[question] = 0
-                    if question not in negative_sample_num:
-                        negative_sample_num[question] = 0
-                    if not event_type in tmp or not tmp[event_type]["arguments"]:
-                        negative_sample_num[question]+=1
-                        if negative_sample_num[question] > 5*positive_sample_num[question]:
-                            continue
-                        data[-1]["paragraphs"][-1]["qas"].append({"question":question, "id":str(k), "answers":[], "is_impossible":True})                      
-                
-                    elif event_type in tmp and tmp[event_type]["arguments"]:
-                        if property not in tmp[event_type]["arguments"]:
-                            negative_sample_num[question]+=1
-                            if negative_sample_num[question] > 5*positive_sample_num[question]:
-                                continue
-                            data[-1]["paragraphs"][-1]["qas"].append({"question":question, "id":str(k), "answers":[], "is_impossible":True})
-                        elif property in tmp[event_type]["arguments"]:
-                            answ = {}
-                            answrs = []
-                            for argument_string in tmp[event_type]["arguments"][property]:
-                                answ["text"] = argument_string
-                                answ["answer_start"] = u_sentence.index(argument_string)
-                                answrs.append(answ)
-                            data[-1]["paragraphs"][-1]["qas"].append({"question":question, "id":str(k), "answers":answrs, "is_impossible":False})
-                            positive_sample_num[question]+=1 
-    return data
-
-
 
 
 def create_training_data(path):
