@@ -1,8 +1,9 @@
 # Datasets for extraction of semantic event representation
 
-Here are  two event extraction datasets and a file describing the distribution of their event and property labels. 
+We introduce two new large-scale datasets for the extraction of semantic event representations based on DBpedia and Wikidata. The two datasets contain consist of $43,291$ and $72,649$ samples ,respectively.
 
-The two datasets were derived from all Wikipedia articles of events. Given this set of Wikipedia articles, for each Wikipedia link that occurs in the text of an article, it is mapped to a corresponding Wikidata and DBpedia X. Using  
+We derive the datasets from all Wikipedia articles of events. Given this set of Wikipedia articles, for each Wikipedia link that occurs in the text of an article, it is mapped to a corresponding Wikidata and DBpedia event entry.   
+
 Both datasets follow the same formatting, similar to that of DyGie++. They are .jsonl files where each line contains a json like the one below:
 ```
 {"doc_key": 36206, 
@@ -20,5 +21,5 @@ An event with N arguments will be written as a list of the form:
 ```
 
 
-The   ```event_ontology_distribution.json``` file contains a dictionary counting the total number of event classes and properties across the two datasets.
+The   ```event_ontology_distribution.json``` file contains a dictionary describing the distribution of  event and property labels across the two datasets.
 
