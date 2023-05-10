@@ -4,7 +4,7 @@ We introduce two new large-scale datasets for the extraction of semantic event r
 
 We derive the datasets from all Wikipedia articles of events. Event classes and relations are extracted by exploiting existing links to events and their Wikidata representations. 
 
-![alt text](https://github.com/foranonymoussubmissions2022/O-GEE/edit/main/test/datasets/groundtruth.png?raw=true)
+![alt text](https://github.com/foranonymoussubmissions2022/O-GEE/edit/main/test/datasets/ground_truth.png?raw=true)
 
 
 Both datasets follow the same formatting, similar to that of DyGie++. They are .jsonl files where each line contains a json like the one below:
