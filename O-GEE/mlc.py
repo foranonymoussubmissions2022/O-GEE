@@ -83,10 +83,6 @@ class FocalLoss(torch.nn.Module):
 def loss_fn(outputs, targets):
     return FocalLoss(gamma=2)(outputs, targets)
 
-"""
-def loss_fn(outputs, targets):
-    return torch.nn.BCEWithLogitsLoss()(outputs, targets)
-"""
 
 def train(epoch):
     model.train()

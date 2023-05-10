@@ -16,7 +16,7 @@ def load_data(part = "train"):
         t = "val"
     else:
         t = part
-    with open("../data/enriched_training/re/wd_enriched_eq_"+part+".json", 'r') as json_file1, open("../data/enriched_training/t2e/wd_enriched_eq_"+t+".json", 'r') as json_file2:
+    with open("../data/training/re/wde_eq_"+part+".json", 'r') as json_file1, open("../data/training/t2e/wde_eq_"+t+".json", 'r') as json_file2:
         json_list1 = list(json_file1)
         json_list2 = list(json_file2)
 
@@ -46,7 +46,7 @@ import pandas as pd
 import csv
 import ast
 # read from schema all event types
-with open("../data/enriched_training/t2e/wd_enriched_unlabelled_event.schema","r") as f:
+with open("../data/training/t2e/wde_unlabelled_event.schema","r") as f:
     lines = [line.rstrip() for line in f]
 event_classes = ast.literal_eval(lines[0])
 event_properties = ast.literal_eval(lines[1])
@@ -60,7 +60,7 @@ a = []
 for part in ["train","test", "dev"]:
     data, event_classes, cc = load_data(part)
     a.append(event_classes)
-    with open("../data/enriched_training/mlc_data/wd_enriched_multilabel_"+part+".csv", "w") as csvfile:
+    with open("../data/training/mlc_data/wde_multilabel_"+part+".csv", "w") as csvfile:
         fieldnames = ["id","text"]+a[0]
         writer = csv.DictWriter(csvfile, fieldnames=fieldnames)
         writer.writeheader()

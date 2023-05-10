@@ -1,13 +1,13 @@
 import json
 from datasets import load_dataset
 
-input_filename1 = "../../data/training/re/wde2_sparse_re_train.json"
-input_filename2  ="../../data/training/re/wde2_sparse_re_test.json"
-input_filename3 ="../../data/training/re/wde2_sparse_re_dev.json"
+input_filename1 = "../../data/training/re/wde_sparse_re_train.json"
+input_filename2  ="../../data/training/re/wde_sparse_re_test.json"
+input_filename3 ="../../data/training/re/wde_sparse_re_dev.json"
 
-output_filename1 = "training_data/wde_sparse_re_train3.json"
-output_filename2 = "training_data/wde_sparse_re_test3.json"
-output_filename3 = "training_data/wde_sparse_re_dev3.json"
+output_filename1 = "training_data/wde_sparse_re_train2.json"
+output_filename2 = "training_data/wde_sparse_re_test2.json"
+output_filename3 = "training_data/wde_sparse_re_dev2.json"
 
 def convert(input_filename, output_filename):
     title = 0
