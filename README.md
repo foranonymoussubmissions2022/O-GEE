@@ -41,3 +41,20 @@ To test our approach on other events ontologies or datasets follow the steps as 
 * run  ```test/mlc.py``` to train the event classification model and produce an output on the testing data.
 * run  ```test/train.sh``` to train the relation extraction model.
 * run  ```test/evaluation``` to get the final evaluation scores of the approach on the new dataset.
+
+
+
+| **Approach** | **Event Classification** | | | | | | **Relation Extraction** | | | | | |
+| --- | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: |
+| | **Macro** | | | **Micro** | | | **Macro** | | | **Micro** | | |
+| | **P** | **R** | **F$_1$** | **P** | **R** | **F$_1$** | **P** | **R** | **F$_1$** | **P** | **R** | **F$_1$** |
+| | | | | | | | | | | | | |
+| **DBpedia** | | | | | | | | | | | | |
+| \bslASP{} | - | - | - | - | - | - | 0.46 | 0.42 | 0.42 | 0.57 | 0.41 | 0.48 |
+| \bslTE{} | **0.80** | **0.79** | **0.80** | **0.94** | **0.94** | **0.94** | 0.70 | 0.66 | 0.67 | 0.79 | 0.78 | 0.79  |
+| \bslDyG{} | 0.70 | 0.73 | 0.71 | 0.90 | 0.89 | 0.89  | 0.63 | 0.58 | 0.59 | 0.78 | 0.75 | 0.76 |
+| \approach{} | 0.77 | 0.74 | 0.74 | 0.92 | 0.91 | 0.92 | **0.72** | **0.68** | **0.70** | **0.82** | **0.81** | **0.81**   |
+| | | | | | | | | | | | | |
+| **Wikidata** | | | | | | | | | | | | |
+| \bslASP{} | - | - | - | - | - | - | 0.50 | 0.39 | 0.41 | 0.71 | 0.40 | 0.51 |
+| \bslTE{}  | 0.84 | 0.86 | 0.85 | 0.87 | 0.89 | 0.88 | 0.77 | 0.73 | 0.74 | 0.87 | **0.89** | 0.88  |
