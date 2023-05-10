@@ -1,14 +1,12 @@
 *
 !.gitignore
-!test
-!processing
-!O-GEE
-!evaluation
-!data
-!baselines
 !test/*
-!data/training
-!data/training/*
+!processing/*
+!O-GEE/*
+!evaluation/*
+!data/*
+!baselines/*
+
 
 
 

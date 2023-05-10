@@ -1,3 +1,4 @@
+!.gitignore
 env/
 mlc_data
 ancestors.json
