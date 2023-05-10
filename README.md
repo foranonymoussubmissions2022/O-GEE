@@ -6,7 +6,7 @@ This is the code for O-GEE (Ontology-Guided Event Extraction), based on the pape
 
 
 ## Steps
-To recreate the dataset creation, training and evaluation as described in the paper follow the steps as described below. To use our complete data for experiments start from [Training](#Training).
+To recreate the dataset creation, training and evaluation as described in the paper follow the steps as described below. To use our complete data for experiments with O-GEE start from [Training](#Training).
 ### Data creation and preprocessing
 * Follow instructions in the [EventTextWikipediaDumper](https://github.com/foranonymoussubmissions2022/EventTextWikipediaDumper) to run [MWDumper](https://www.mediawiki.org/wiki/Manual:MWDumper) and get Wikipedia articles of events in .ndjson file format. Place the resulting files into data\raw in the project folder.
 * Run ```data/data_download.sh``` to prepare Wikidata and Dbpedia dumps and redirects.
@@ -17,7 +17,8 @@ To recreate the dataset creation, training and evaluation as described in the pa
 * To train the multilabel classification model first format the multilabel training, validation and testing data by running  ```O-GEE/format_mlc_data.py```. Then follow up by running ```O-GEE/mlc.py```. This will generate the saved model and the output of the model inside the ```/evaluation/minority_classes/mlc_output/```.
 * To train the Relation Extraction Model first generate the appropriate format for the data by running ```python O-GEE/convert_data.py```, then run ```O-GEE/train.sh```.
 ### Evaluation
-* Finally to evaluate the perfomance of **O-GEE** and the baselines,and generate the output of our model run ```evaluation/evaluation.py```.
+* Finally to evaluate the perfomance of **O-GEE** and the baselines,and generate the output of our model run ```evaluation/evaluation.py```. 
+  * (Note: To get evaluation scores for the baselines, first follow instruction in their respective subfolders in the [baselines](https://github.com/foranonymoussubmissions2022/O-GEE/blob/main/baselines) folder.)
 
 
 
