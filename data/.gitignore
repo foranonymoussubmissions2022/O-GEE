@@ -1,5 +1,6 @@
 *
 !datasets
+!datasets/*
 !raw_data
 !.gitignore
 !create_shelves.py
