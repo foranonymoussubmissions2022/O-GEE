@@ -11,7 +11,7 @@ We introduce two new large-scale datasets for the extraction of semantic event r
 
 We derive the datasets from all Wikipedia articles of events. Event classes and relations are extracted by exploiting existing links to events and their Wikidata representations. 
 
-![alt text](https://github.com/foranonymoussubmissions2022/O-GEE/blob/main/test/datasets/ground_truth.png)
+![alt text](https://github.com/foranonymoussubmissions2022/O-GEE/blob/main/data/datasets/ground_truth.png)
 Example illustrating how we label texts with events and relations. The Wikipedia text on the left links to the Wikidata event on the right side, which also has a
 relation to an entity mentioned in the text (country: Syria)
 
