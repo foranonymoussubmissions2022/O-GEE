@@ -69,8 +69,8 @@ An event with N arguments will be written as a list of the form:
 ```
 
 
-* run  ```test/formatting.py``` to create necessary event classification and relation extraction training splits.
-* run ```test/convert_data.py```for further processing of relation extraction data.
-* run  ```test/mlc.py``` to train the event classification model and produce an output on the testing data.
-* run  ```test/train.sh``` to train the relation extraction model.
-* run  ```test/evaluation``` to get the final evaluation scores of the approach on the new dataset.
+* Then follow instruction as described above to train the models, generate the output and evaluate the results.
+
+### Datasets
+  * For more details on the dataset formatting, creation and statistics see the [datasets](https://github.com/foranonymoussubmissions2022/O-GEE/blob/main/data/datasets) folder.
+
