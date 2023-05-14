@@ -17,7 +17,7 @@ To recreate the dataset creation, training and evaluation as described in the pa
 * To train the multilabel classification model first format the multilabel training, validation and testing data by running  ```O-GEE/format_mlc_data.py```. Then follow up by running ```O-GEE/mlc.py```. This will train the model and generate the output of the model inside the ```/evaluation/output/mlc_output/```.
 * To train the Relation Extraction Model first generate the appropriate format for the data by running ```python O-GEE/convert_data.py```, then run ```O-GEE/train.sh```.
 ### Evaluation
-* Finally to evaluate the perfomance of **O-GEE** and the baselines,and generate the output of our model run ```evaluation/evaluation.py```. 
+* Finally to evaluate the perfomance of **O-GEE** and the baselines,and generate the output of our model run ```evaluation/eval.py```. 
 * (Note: To get evaluation scores for the baselines, first follow instruction in their respective subfolders in the [baselines](https://github.com/foranonymoussubmissions2022/O-GEE/blob/main/baselines) folder.)
 
 
