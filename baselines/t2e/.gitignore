@@ -1,3 +1,27 @@
-__pycache__
-!.gitignore
-old
+/data
+/lightning_logs
+/model
+/models
+/*log
+/thirdparty
+
+.lock
+# mac
+.DS_Store
+
+# env
+/.vscode
+/.idea
+**/__pycache__
+*.pyc
+.pytest_cache
+
+# doc
+docs/build
+docs/.vscode
+docs/source/_build
+
+# models
+/models
+/pretrained_models
+/runs
