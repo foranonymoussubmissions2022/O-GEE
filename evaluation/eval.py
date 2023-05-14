@@ -326,17 +326,17 @@ if __name__=="__main__":
     predict(mode,extra,training_set)
     print("classes:")
     exact_eval("output/mlc_output/"+mode+extra+"_predictions.json", mode)
-    exact_eval("output/t2e_output/"+mode+"_test_output_30.json", mode)
-    exact_eval("output/dygiepp_output/"+mode+"_output30.json", mode)
+    #exact_eval("output/t2e_output/"+mode+"_test_output_30.json", mode)
+    #exact_eval("output/dygiepp_output/"+mode+"_output30.json", mode)
     
     eval_scores(mode+"_mlc_scores.json", "Our")
-    eval_scores(mode+"_t2e_scores.json")
-    eval_scores(mode+"_dygiepp_scores.json", "Dyggiepp")
+    #eval_scores(mode+"_t2e_scores.json")
+    #eval_scores(mode+"_dygiepp_scores.json", "Dyggiepp")
 
     print("properties:")
     eval_scores(mode+"_mlc_property_scores.json", "Our")
-    eval_scores(mode+"_t2e_property_scores.json")
-    eval_scores(mode+"_dygiepp_property_scores.json", "Dyggiepp")
+    #eval_scores(mode+"_t2e_property_scores.json")
+    #eval_scores(mode+"_dygiepp_property_scores.json", "Dyggiepp")
     
 
 
