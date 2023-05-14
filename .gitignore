@@ -1,13 +1,3 @@
-*
-!.gitignore
-!test/*
-!processing/*
-!O-GEE/*
-!evaluation/*
-!data/*
-!baselines/*
-!figs/*
-
-
+!*
 
 

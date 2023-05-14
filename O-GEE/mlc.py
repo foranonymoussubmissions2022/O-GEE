@@ -144,7 +144,6 @@ if __name__=="__main__":
     EPOCHS = 30
     LEARNING_RATE = 1e-05
     tokenizer = BertTokenizer.from_pretrained('bert-base-uncased')
-    train_size = 1
 
     train_dataset = new_df
 
@@ -154,10 +153,7 @@ if __name__=="__main__":
     new_df.head()
 
 
-
-
     test_dataset = new_df
-
 
     df3 = pd.read_csv('../data/training/mlc_data/wde_multilabel_dev.csv')
     df3['list'] = df3[df3.columns[2:]].values.tolist()
@@ -165,7 +161,6 @@ if __name__=="__main__":
     new_df.head()
 
     dev_dataset = new_df
-
 
     print("TRAIN Dataset: {}".format(train_dataset.shape))
     print("DEV Dataset: {}".format(new_df.shape))
@@ -209,8 +204,6 @@ if __name__=="__main__":
         outputs, targets = validation(epoch)
         outputs = np.array(outputs)
         indices = np.argmax(outputs, axis = 1)
-        #for j, i in enumerate(indices):
-            #outputs[j][i] = 1.0
         outputs = outputs >= 0.5
         targets = np.array(targets)
 
@@ -225,13 +218,10 @@ if __name__=="__main__":
         if f1_score_micro > max_score:
             max_score = f1_score_micro
 
-            torch.save(model.state_dict(), "wd_model")
             print("Test results:")
             outputs, targets = validation(epoch, mode="test")
             outputs = np.array(outputs)
             indices = np.argmax(outputs, axis = 1)
-            #for j, i in enumerate(indices):
-                #outputs[j][i] = 1.0
 
             outputs = outputs >= 0.5
             targets = np.array(targets)
@@ -266,8 +256,7 @@ if __name__=="__main__":
             print(f"F1 Score (weighted) = {f1_score_weighted}")
 
             print("my f1:", f1)
-            #best_wd2 with loss division
-            with open("../evaluation/minority_classes/mlc_output/wde_with_focal_loss.csv", "w") as f, open('../data/training/mlc_data/wde_multilabel_test.csv',"r") as f2:
+            with open("../evaluation/output/mlc_output/wde_with_focal_loss.csv", "w") as f, open('../data/training/mlc_data/wde_multilabel_test.csv',"r") as f2:
                 writer = csv.DictWriter(f, fieldnames=header, delimiter = '\t',  quoting=csv.QUOTE_NONE, quotechar='')
                 reader = csv.reader(f2)
                 next(reader, None)

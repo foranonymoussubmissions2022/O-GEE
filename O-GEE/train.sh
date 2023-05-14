@@ -1,4 +1,4 @@
-CUDA_VISIBLE_DEVICES=0,1,2,3,4 python -m torch.distributed.launch --nproc_per_node=4 transformers/examples/pytorch/question-answering/run_qa.py \
+CUDA_VISIBLE_DEVICES=0 python  transformers/examples/pytorch/question-answering/run_qa.py \
   --model_name_or_path bert-base-uncased \
   --do_train \
   --ddp_timeout 18000 \
@@ -14,4 +14,6 @@ CUDA_VISIBLE_DEVICES=0,1,2,3,4 python -m torch.distributed.launch --nproc_per_no
   --output_dir models/wde_re_model \
   --save_steps 5000 \
   --version_2_with_negative \
-# sparse_albert_base_minority_classes dbp
+
+
+

@@ -1,7 +1,7 @@
 import json
 import copy
 from collections import Counter
-
+import os
 all_keys = []
 class_counter =  Counter()
 data = []
@@ -45,6 +45,7 @@ def load_data(part = "train"):
 import pandas as pd   
 import csv
 import ast
+import os
 # read from schema all event types
 with open("../data/training/t2e/wde_unlabelled_event.schema","r") as f:
     lines = [line.rstrip() for line in f]

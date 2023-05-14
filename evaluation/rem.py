@@ -21,7 +21,7 @@ from transformers.data.metrics.squad_metrics import compute_predictions_logits, 
 use_own_model = True
 
 if use_own_model:
-  model_name_or_path = "../mlc/REM/models/wde_re_model2" 
+  model_name_or_path = "../O-GEE/models/wde_re_model" 
 else:
   model_name_or_path = "ktrapeznikov/albert-xlarge-v2-squad-v2"
 

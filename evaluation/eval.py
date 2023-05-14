@@ -11,7 +11,7 @@ import ast
 import copy
 from rem import run_relation_extraction
 
-def predict(mode,extra="_with_focal_loss",training_set="training"):
+def predict(mode,extra="_with_focal_loss4",training_set="training"):
     all_ground_samples=[]
     path_to_ground_data = "../data/"+training_set+"/t2e/"+mode+"_eq_test.json"
     x= 0
@@ -29,7 +29,7 @@ def predict(mode,extra="_with_focal_loss",training_set="training"):
     for json_str in json_list:
         all_ground_samples.append(json.loads(json_str))
 
-    with open("minority_classes/mlc_output/"+mode+extra+".csv", "r") as f, jsonlines.open("../data/"+training_set+"/dygiepp/"+mode+"_eq_test.json","r") as f2:
+    with open("output/mlc_output/"+mode+extra+".csv", "r") as f, jsonlines.open("../data/"+training_set+"/dygiepp/"+mode+"_eq_test.json","r") as f2:
         output_reader = csv.reader(f, delimiter="\t")
         ground = [o for o in f2]
         for i, (output_row, sample) in enumerate(zip(output_reader, all_ground_samples)):
@@ -81,7 +81,7 @@ def predict(mode,extra="_with_focal_loss",training_set="training"):
             write_sample={"text":context, "predicted":preserve_output, "ground":preserve_ground}
             write_samples.append(write_sample)
 
-    with jsonlines.open("minority_classes/mlc_output/"+mode+extra+"_predictions.json","w") as f:
+    with jsonlines.open("output/mlc_output/"+mode+extra+"_predictions.json","w") as f:
         f.write_all(write_samples)
 
 def get_ground_dict_from_sample(sample, data="dbp"):
@@ -325,9 +325,9 @@ if __name__=="__main__":
 
     predict(mode,extra,training_set)
     print("classes:")
-    exact_eval("minority_classes/mlc_output/"+mode+extra+"_predictions.json", mode)
-    exact_eval("minority_classes/t2e_output/"+mode+"_test_output_30.json", mode)
-    exact_eval("minority_classes/dygiepp_output/"+mode+"_output30.json", mode)
+    exact_eval("output/mlc_output/"+mode+extra+"_predictions.json", mode)
+    exact_eval("output/t2e_output/"+mode+"_test_output_30.json", mode)
+    exact_eval("output/dygiepp_output/"+mode+"_output30.json", mode)
     
     eval_scores(mode+"_mlc_scores.json", "Our")
     eval_scores(mode+"_t2e_scores.json")
